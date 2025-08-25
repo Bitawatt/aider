@@ -67,6 +67,7 @@ class Voice:
                 self.device_id = device_id
             else:
                 self.device_id = None
+                print("Using default input device.")
 
         except (OSError, ModuleNotFoundError):
             raise SoundDeviceError
