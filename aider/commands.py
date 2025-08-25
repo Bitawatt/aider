@@ -80,6 +80,17 @@ class Commands:
 
         self.help = None
         self.editor = editor
+        # Set up voice automatically if OpenAI API key is provided
+        if "OPENAI_API_KEY" in os.environ:
+            try:
+                self.voice = voice.Voice(
+                    audio_format=self.voice_format or "wav",
+                    device_name=self.voice_input_device
+                )
+            except voice.SoundDeviceError as e:
+                self.io.tool_warning(f"Voice not initialized: {e}")
+        else:
+            self.voice = None
 
         # Store the original read-only filenames provided via args.read
         self.original_read_only_fnames = set(original_read_only_fnames or [])
