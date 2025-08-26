@@ -1699,13 +1699,8 @@ Just show me the edits I need to make.
         if "circuit" in input_lower or "wiring" in input_lower:
             module_weights["electrical"] += 5
         best_module = max(module_weights, key=module_weights.get)
-        expertise = "intermediate"
-        if any(word in input_lower for word in ["beginner", "novice", "entry-level", "basic", "junior", "student"]):
-            expertise = "beginner"
-        elif any(word in input_lower for word in ["expert", "advanced", "pro", "master", "professional", "certified", "experienced"]):
-            expertise = "advanced"
         response = (f"Agent Engineer launched with design focus: {best_module.capitalize()} Design Module "
-                    f"and expertise level set to {expertise}.")
+                    "and models reconfigured for optimum efficiency.")
         self.io.tool_output(response)
     
 def expand_subdir(file_path):
