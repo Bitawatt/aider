@@ -1,4 +1,4 @@
-```
+```mermaid
 flowchart TD
     A[User Input] --> B[VSCode (with Mermaid Plugin)]
     B --> C[Commands & Agents Parser]
@@ -13,4 +13,4 @@ flowchart TD
     J --> L[Mechanical Design Module]
     J --> M[Electrical & Civil Design Module]
     I --> N[Model Configuration and Optimization]
-```mermaid
+```
