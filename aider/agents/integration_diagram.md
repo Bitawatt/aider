@@ -1,4 +1,4 @@
-```mermaid
+```
 flowchart TD
     A[User Input] --> B[VSCode (with Mermaid Plugin)]
     B --> C[Commands & Agents Parser]
