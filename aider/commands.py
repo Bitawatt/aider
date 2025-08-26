@@ -1674,8 +1674,39 @@ Just show me the edits I need to make.
 
 
     def cmd_agent(self, args):
-        "Launch an AI agent session using various tools and LLMs. Usage: /agent [options]"
-        self.io.tool_output("Agent session initialized. This feature is under development.")
+        """
+        Launch Agent Engineer session.
+        This command parses user input to determine which design module to invoke
+        (Chemical, Mechanical, Electrical & Civil) based on keyword weighting.
+        It also gauges the user's expertise level from language cues.
+        """
+        input_lower = args.lower()
+        module_weights = {"chemical": 0, "mechanical": 0, "electrical": 0, "civil": 0}
+        if "chemical" in input_lower:
+            module_weights["chemical"] += 10
+        if "mechanical" in input_lower:
+            module_weights["mechanical"] += 10
+        if "electrical" in input_lower or "electronic" in input_lower:
+            module_weights["electrical"] += 10
+        if "civil" in input_lower:
+            module_weights["civil"] += 10
+        if "process" in input_lower or "reaction" in input_lower:
+            module_weights["chemical"] += 5
+        if "structure" in input_lower or "stress" in input_lower:
+            module_weights["civil"] += 5
+        if "machine" in input_lower or "mechanism" in input_lower:
+            module_weights["mechanical"] += 5
+        if "circuit" in input_lower or "wiring" in input_lower:
+            module_weights["electrical"] += 5
+        best_module = max(module_weights, key=module_weights.get)
+        expertise = "intermediate"
+        if any(word in input_lower for word in ["beginner", "novice", "entry-level", "basic"]):
+            expertise = "beginner"
+        if any(word in input_lower for word in ["expert", "advanced", "pro", "master"]):
+            expertise = "advanced"
+        response = (f"Agent Engineer launched with design focus: {best_module.capitalize()} Design Module "
+                    f"and expertise level set to {expertise}.")
+        self.io.tool_output(response)
     
 def expand_subdir(file_path):
     if file_path.is_file():
