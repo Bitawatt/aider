@@ -1,6 +1,6 @@
 #!/bin/bash
 # Universal notepad command: open Notepad++ with passed parameters.
-if command -v notepad++ >/dev/null 2>&1; then
+if [ -x "/home/anon/.wine/drive_c/Program Files (x86)/notepad++" ]; then
   wine "/home/anon/.wine/drive_c/Program Files (x86)/notepad++" "$@"
 else
   echo "Notepad++ is not installed or not in PATH."
