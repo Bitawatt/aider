@@ -1,0 +1,23 @@
+#failed bash attempt with python
+#!/bin/bash
+
+#Virtual Environment
+if type deactivate >/dev/null 2>&1; then
+        deactivate
+fi
+
+cd ~/Tools/ai/aider/.env/
+source aider/bin/activate
+cd ../
+
+# Prepare API keys
+api_keys=""
+for key_file in ~/Tools/ai/aider/.env/.*_key; do
+    key_name=$(basename "$key_file" | cut -f 1 -d ".")
+    key_value=$(cat "$key_file")
+    api_keys+="$key_name=$key_value "
+done
+
+#Launch aider
+python -m aider --model o3-mini --api-key "$api_keys"
+
