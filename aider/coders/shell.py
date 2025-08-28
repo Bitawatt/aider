@@ -48,3 +48,17 @@ def truncate_output(output):
     if len(lines) <= 8:
         return output
     return "\n".join(lines[:4] + ["..."] + lines[-4:])
+
+def inspect_github_ssh():
+    """
+    Run 'ssh -vT git@github.com' to inspect the SSH connection to GitHub.
+    Returns the truncated output.
+    """
+    import subprocess
+    try:
+        result = subprocess.run(["ssh", "-vT", "git@github.com"], capture_output=True, text=True, timeout=30)
+        # Use stderr for verbose SSH output if available, otherwise use stdout
+        output = result.stderr if result.stderr else result.stdout
+        return truncate_output(output)
+    except Exception as e:
+        return f"Error running inspection: {e}"
