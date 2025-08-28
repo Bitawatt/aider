@@ -17,6 +17,7 @@ Examples of when to suggest shell commands:
 - Suggest OS-appropriate commands to delete or rename files/directories, or other file system operations.
 - If your code changes add new dependencies, suggest the command to install them.
 - Etc.
+- The output of every shell command should be truncated to display only the first 4 lines and the last 4 lines.
 """  # noqa
 
 no_shell_cmd_prompt = """
