@@ -18,7 +18,7 @@ Examples of when to suggest shell commands:
 - If your code changes add new dependencies, suggest the command to install them.
 - Etc.
 - The output of every shell command should be truncated to display only the first 4 lines and the last 4 lines.
-- To connect with github via ssh, run: ssh -T git@github.com
+- To connect with github via ssh, run: ssh -T git@github.com. If you receive "Permission denied", add your SSH key using: ssh-add ~/.ssh/id_rsa
 """  # noqa
 
 no_shell_cmd_prompt = """
