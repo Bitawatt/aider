@@ -55,6 +55,13 @@ def inspect_github_ssh():
     Returns the truncated output.
     """
     import subprocess
+    import os
+    # Check if ED25519 key is loaded; if not, attempt to add it.
+    ed_key = os.path.expanduser("~/.ssh/id_ed25519")
+    if os.path.exists(ed_key):
+        key_list = subprocess.run(["ssh-add", "-l"], capture_output=True, text=True)
+        if "id_ed25519" not in key_list.stdout:
+            subprocess.run(["ssh-add", ed_key])
     try:
         result = subprocess.run(["ssh", "-vT", "git@github.com"], capture_output=True, text=True, timeout=30)
         # Use stderr for verbose SSH output if available, otherwise use stdout
