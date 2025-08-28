@@ -36,3 +36,14 @@ Examples of when to suggest shell commands:
 - Etc.
 
 """  # noqa
+def truncate_output(output):
+    """
+    Return a truncated version of the command output:
+    If the output has more than 8 lines, return the first 4 lines,
+    a separator ("..."), and the last 4 lines.
+    Otherwise, return the original output.
+    """
+    lines = output.splitlines()
+    if len(lines) <= 8:
+        return output
+    return "\n".join(lines[:4] + ["..."] + lines[-4:])
