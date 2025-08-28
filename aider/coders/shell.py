@@ -56,9 +56,12 @@ def inspect_github_ssh():
     """
     import subprocess
     import os
-    # Check if ED25519 key is loaded; if not, attempt to add it.
+    # Check if ED25519 key file exists.
     ed_key = os.path.expanduser("~/.ssh/id_ed25519")
-    if os.path.exists(ed_key):
+    if not os.path.exists(ed_key):
+        return "ED25519 SSH key not found. Please generate one using: ssh-keygen -t ed25519"
+    else:
+        # If the key exists, ensure it's added.
         key_list = subprocess.run(["ssh-add", "-l"], capture_output=True, text=True)
         if "id_ed25519" not in key_list.stdout:
             subprocess.run(["ssh-add", ed_key])
